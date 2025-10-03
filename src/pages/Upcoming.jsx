@@ -11,7 +11,8 @@ export const Upcoming = ({ onContentSelect }) => {
       const endpoint = `/movie/upcoming`;
       const data = await fetchData(endpoint);
       if (data?.results) {
-        setItems(data.results.filter(i => i.poster_path));
+        // FIXED: Map results to explicitly include media_type: 'movie'
+        setItems(data.results.filter(i => i.poster_path).map(i => ({ ...i, media_type: 'movie' })));
       } else setItems([]);
     };
     load();

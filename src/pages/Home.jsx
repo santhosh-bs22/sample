@@ -1,40 +1,40 @@
 // /src/pages/Home.jsx
-// ... (imports)
+
+import React, { useEffect, useState } from 'react';
+import { useContentApi } from '../hooks/useContentApi'; 
+import { MainContentGrid } from '../components/MainContentGrid'; 
+// REMOVED: import of ContentDetails (now in App.jsx)
 
 const Home = ({ onContentSelect }) => {
-  // ... (useContentApi setup)
+  const { fetchData, loading, error } = useContentApi(); 
+  
   const [items, setItems] = useState([]);
-  const [selected, setSelected] = useState(null); // {id, type}
-
-  // ... (useEffect to load trending content)
-
-  const handleSelect = (id, type) => {
-    setSelected({ id, type });
-    if (onContentSelect) onContentSelect(id, type);
-  };
-
-  const handleBack = () => setSelected(null);
+  
+  useEffect(() => {
+    const load = async () => {
+      // Fetch trending content for the day (popular default endpoint)
+      const endpoint = `/trending/all/day`; 
+      const data = await fetchData(endpoint);
+      if (data?.results) {
+        // Filter out items without a poster AND ensure media_type is not 'person'
+        setItems(data.results.filter(i => i.poster_path && i.media_type !== 'person'));
+      } else {
+        setItems([]);
+      }
+    };
+    load();
+  }, [fetchData]);
 
   return (
     <main className="main-content">
-      {!selected && (
-        <MainContentGrid
+      <MainContentGrid
           items={items}
           loading={loading}
           error={error}
           isSearching={false}
-          query=""
-          onContentSelect={handleSelect} // <- Passes the local handler
-        />
-      )}
-
-      {selected && (
-        <ContentDetails
-          itemId={selected.id}
-          mediaType={selected.type}
-          onBack={handleBack}
-        />
-      )}
+          query="Trending Content" 
+          onContentSelect={onContentSelect} // Use the global handler
+      />
     </main>
   );
 };

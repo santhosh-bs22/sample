@@ -475,3 +475,164 @@ button:hover {
         font-size: 1.5rem;
     }
 }
+/* (All original CSS content before this section is kept unchanged) */
+
+/* ======================
+   Header (Updated with Search)
+   ====================== */
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.35));
+    border-bottom: 1px solid rgba(0,255,102,0.06);
+    backdrop-filter: blur(6px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+/* ... (existing .app-title, .nav-links, .lang-select styles) */
+
+/* ADDED STYLES for Search Form */
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-grow: 1; 
+    max-width: 400px;
+    margin: 0 2rem;
+}
+
+.search-input {
+    flex-grow: 1;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(0,255,102,0.12);
+    background: var(--card);
+    color: var(--text);
+    font-size: 1em;
+    transition: border-color 0.25s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.search-button {
+    background: var(--accent);
+    color: var(--bg);
+    padding: 0.6rem 0.8rem;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.25s;
+    line-height: 1;
+}
+
+.search-button:hover {
+    background: var(--accent-2);
+    transform: none; 
+}
+/* ... (remaining original CSS content for Main Grid, Details Page, etc.) */
+
+/* Responsive adjustment for mobile: make search form full width */
+@media (max-width: 768px) {
+    .header-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+    .search-form {
+        margin: 0;
+        max-width: none;
+    }
+    .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    .nav-links a {
+        margin-left: 0.5rem;
+    }
+}
+/* ... (Keep all existing CSS content above this point) ... */
+
+/* ADDED STYLES for Language Page */
+
+.language-list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.5rem; /* Increased gap for better spacing */
+    margin-top: 2rem;
+}
+
+.language-card {
+    text-decoration: none;
+    padding: 1.5rem 1rem;
+    border-radius: 12px;
+    background: var(--card); 
+    color: var(--text); 
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: var(--transition);
+    border: 1px solid rgba(0,255,102,0.1); /* Subtle border */
+    box-shadow: 0 4px 15px rgba(0,255,102,0.05); /* Soft shadow */
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.language-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(0,255,102,0.05) 0%, transparent 50%, rgba(0,255,102,0.01) 100%);
+    transition: opacity 0.3s;
+    opacity: 0;
+}
+
+.language-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 40px rgba(0,255,102,0.1);
+    border-color: var(--accent);
+}
+
+.language-card:hover::before {
+    opacity: 1;
+}
+
+/* ... (Keep all existing CSS content below this point) ... */
+/* ... (All original CSS content above this point) ... */
+
+/* Add a style for the new language filter back button */
+.back-to-filter-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.8rem;
+    margin-bottom: 1.5rem; /* Ensure space before the main content grid */
+    background: rgba(0,255,102,0.06);
+    border: 1px solid rgba(0,255,102,0.08);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text);
+    transition: var(--transition);
+}
+
+.back-to-filter-button:hover {
+    background: rgba(0,255,102,0.09);
+    transform: translateY(-1px);
+    border-color: var(--accent);
+}
+
+/* ... (All original CSS content below this point) ... */
+
+

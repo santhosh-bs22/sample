@@ -5,7 +5,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { LANGUAGE_CODES } from "../utils/language";
 
 export const Movies = ({ onContentSelect }) => {
-  const { fetchData, loading, error, shuffleArray } = useContentApi();
+  const { fetchData, loading, error } = useContentApi();
   const { language } = useLanguage();
   const [items, setItems] = useState([]);
 
@@ -16,7 +16,8 @@ export const Movies = ({ onContentSelect }) => {
       const endpoint = `/discover/movie?sort_by=popularity.desc&with_original_language=${langCode}`;
       const data = await fetchData(endpoint);
       if (data?.results) {
-        setItems(data.results.filter(i => i.poster_path));
+        // FIXED: Map results to explicitly include media_type: 'movie'
+        setItems(data.results.filter(i => i.poster_path).map(i => ({ ...i, media_type: 'movie' })));
       } else {
         setItems([]);
       }
